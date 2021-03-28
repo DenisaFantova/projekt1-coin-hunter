@@ -16,17 +16,23 @@ audio.loop = true;
 
 
 function umisteniMince() {
-	nahodneUmisteniX = Math.floor(Math.random() * sirkaOkna) + 'px';
-	nahodneUmisteniY = Math.floor(Math.random() * vyskaOkna) + 'px';
-	mince.style.top = nahodneUmisteniX;
-	mince.style.left = nahodneUmisteniY;
+	nahodneUmisteniX = Math.floor((Math.random() * sirkaOkna) + 0);
+	nahodneUmisteniY = Math.floor((Math.random() * vyskaOkna) + 0);
+	if (nahodneUmisteniX >= sirkaOkna) {
+		return nahodneUmisteniX = nahodneUmisteniX - 36;
+	}
+	if (nahodneUmisteniY >= vyskaOkna) {
+		return nahodneUmisteniY = nahodneUmisteniY - 36;
+	} 
+	mince.style.left = nahodneUmisteniX + 'px';
+	mince.style.top = nahodneUmisteniY + 'px'; 
 }
 
 umisteniMince();
 
 function umisteniPanacka() {
-	panacek.style.top = '500px';
-	panacek.style.left = '500px';
+	panacek.style.left = sirkaOkna / 2 + 'px';
+	panacek.style.top = vyskaOkna / 2 + 'px';	
 }
 
 umisteniPanacka();
@@ -36,7 +42,7 @@ function bod () {
 	score.textContent = aktualniScore;
 	if (aktualniScore === 5) {
 		zvukFanfara.play();  
-		alert('Vyhrál jsi. Můžeš si ale hrát dál.')     ;                  
+		alert('Vyhrál jsi. Můžeš si ale hrát dál.');                  
 	} 
 }
 
@@ -66,10 +72,10 @@ function pohybPanacka(udalost) {
 	}	
 		
 	if (udalost.key === 'ArrowDown') {
-		posunY = panacekY + 10;
+		let posunY = panacekY + 10;
 		panacek.style.top = posunY + 'px';
 		panacek.src = 'obrazky/panacek.png';
-		if (panacekY >= vyskaOkna) {
+		if ((panacekY + 64) >= vyskaOkna) {
 			panacek.style.top = panacekY + 'px';
 		}
 		if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
@@ -83,7 +89,7 @@ function pohybPanacka(udalost) {
 		let posunX = panacekX - 10;
 		panacek.style.left = posunX + 'px';
 		panacek.src = 'obrazky/panacek-vlevo.png';
-		if (panacekX <= 0) {
+		if ((panacekX) <= 0) {
 			panacek.style.left = panacekX + 'px';
 		}
 		if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
@@ -94,10 +100,10 @@ function pohybPanacka(udalost) {
 	}
 
 	if (udalost.key === 'ArrowRight') {
-		posunX = panacekX + 10;
+		let posunX = panacekX + 10;
 		panacek.style.left = posunX + 'px';
 		panacek.src = 'obrazky/panacek-vpravo.png';
-		if (panacekX >= sirkaOkna) {
+		if ((panacekX + 70) >= sirkaOkna) {
 			panacek.style.left = panacekX + 'px';
 		}
 		if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
