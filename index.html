@@ -9,21 +9,27 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<body onkeydown="pohybPanacka(event); hudba()">
+<body onkeydown="pohybPanacka(event)" onload="priNacteniStranky()">
+	<div class="panel">
+		<button class="tlacitko hudba-play" onclick="hudbaPlay()">Music ON</button>
+		<button class="tlacitko hudba-stop" onclick="hudbaStop()">Music OFF</button>
+		<button class="tlacitko vyber-pozadi" onclick="vyberPozadi()">Vyber si pozadí</button>
+	</div>
 
 	<div id="score">0</div>
-	
+
 	<img id="mince" src="obrazky/mince-stribrna.png" alt="mince">
 
 	<img id="panacek" src="obrazky/panacek.png" alt="Panáček">
 
-	
 	<audio id="zvukMince" src="zvuky/mince.mp3"></audio>
 
 	<audio id="zvukFanfara" src="zvuky/fanfara.mp3"></audio>
 
-	<audio id="hudba" src="zvuky/hudba.mp3" autoplay loop controls> </audio>
+	<audio id="hudba" src="zvuky/hudba.mp3" autoplay loop> </audio>
 	
 	<script src="main.js"></script>
+
 </body>
+
 </html>

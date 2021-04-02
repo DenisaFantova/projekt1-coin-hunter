@@ -19,8 +19,8 @@ body {
 	height: 100vh;
 	background-color: var(--pozadi);
 	background-repeat: repeat;
-	background-image: url('obrazky/pozadi/weather.png');
-
+	background-image: url('obrazky/pozadi/geometry.png');
+	
 
 	/*  vyzkoušej i jiná pozadí :)
 	background-image: url('obrazky/pozadi/geometry.png');
@@ -33,14 +33,60 @@ body {
 	*/
 }
 
+.panel {
+	height: 50px;
+	width: 100vw;
+	background-color: white;
+	margin-bottom: 1px solid black;
+	box-shadow: 10px 0 10px rgba(0, 0, 0, 0.3);
+}
+
 #score {
 	position: absolute;
-	top: 100px;
+	top: 10px;
 	left: 50px;
 	font-family: 'Press Start 2P', sans-serif;
 	font-size: 36px;
 	z-index: 999;
 	color: var(--score);
+}
+
+.tlacitko {
+	background-color: dodgerblue;
+	color: white;
+	border: 0;
+	border-radius: 30px;
+	height: 30px;
+	width: 150px;
+	margin-top: 10px;
+}
+
+.hudba-play {
+	margin-left: 200px;
+}
+
+.hudba-play:hover,
+.hudba-play:active {
+	background-color: lightblue;
+}
+
+.hudba-stop {
+	margin-left: 30px;
+}
+
+.hudba-stop:hover,
+.hudba-stop:active {
+	background-color: lightblue;
+}
+
+.vyber-pozadi {
+	margin-left: 100px;
+	background-color: indigo;
+}
+
+.vyber-pozadi:hover,
+.vyber-pozadi:active {
+	background-color: blueviolet;
 }
 
 #panacek,
