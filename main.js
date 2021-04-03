@@ -6,7 +6,7 @@ let zvukFanfara = document.getElementById('zvukFanfara');
 let score = document.getElementById('score');
 let sirkaOkna = window.innerWidth;
 let vyskaOkna = window.innerHeight;
-let aktualniScore = 0;
+// let aktualniScore = 0;
 let panacekSirka = getComputedStyle(panacek);
 panacekSirka = parseInt(panacekSirka.width);
 let panacekVyska = getComputedStyle(panacek);
@@ -44,12 +44,15 @@ function random_coin(){
 		time_score += 1;
 		time_text.innerText = time_score + "s";
 	}, 1000);
-}
+	}		
 
 }
-*/	
+*/
+
 	function priNacteniStranky() {
 		alert('Pro pohyb panáčka použij šipky. Hraješ dokud nedosáhneš 10 a víc bodů. Můžeš si vybrat pozadí. A nezapomeň si zapnout hudbu :)');
+		nahodnaMince();
+		umisteniPanacka();
 	}
 
 
@@ -60,58 +63,42 @@ function random_coin(){
 		panacek.style.top = vyskaOkna / 2 - panacekVyska / 2 + 'px';	
 	}
 
-	umisteniPanacka();
 
-	
 	// ------- funkce na náhodné umístění mince -------
 
 	let hodnotaMince = 1;
-	
+
 	function nahodnaMince() {
-	
+		
 		let barvaMince = Math.floor(Math.random() * 10 + 1);
 		
 		if (barvaMince >= 9) {
 			mince.src = 'obrazky/mince.png';
 			hodnotaMince = 3;
-		} 
-		if (barvaMince >= 5 && barvaMince < 9) {
+		} else if (barvaMince >= 5 && barvaMince < 9) {
 			mince.src = 'obrazky/mince-stribrna.png';
 			hodnotaMince = 2;
-		}
-		if (barvaMince <5) {
+		} else {
 			mince.src = 'obrazky/mince-bronzova.png';
 			hodnotaMince = 1;
 		}
 
+	nahodneUmisteniX = Math.floor(Math.random() * (sirkaOkna - minceSirka));
+	nahodneUmisteniY = Math.floor(Math.random() * (vyskaOkna - minceVyska) + 50);
 
-	nahodneUmisteniX = Math.floor(Math.random() * sirkaOkna);
-	nahodneUmisteniY = Math.floor(Math.random() * vyskaOkna);
-
-	if (nahodneUmisteniX >= sirkaOkna) {
-		return nahodneUmisteniX = nahodneUmisteniX - minceSirka;
-	}
-	if (nahodneUmisteniY >= vyskaOkna) {
-		return nahodneUmisteniY = nahodneUmisteniY - minceVyska;
-	}
-	if (nahodneUmisteniY <= 50) {
-		return nahodneUmisteniY = 50;
-	}
 	mince.style.left = nahodneUmisteniX + 'px';
 	mince.style.top = nahodneUmisteniY + 'px';
-	
 }
 
-	nahodnaMince();
-
-	
 	// ------- funkce na přičítání skóre -------
 	
-	
-		function bod () {
+	let aktualniScore = 0;
+
+		function bod() {
 		
 		aktualniScore = aktualniScore + hodnotaMince;    
 		score.textContent = aktualniScore;
+		
 		if (aktualniScore >= 10) {
 			zvukFanfara.play();  
 			alert('Vyhrál jsi. Hrajeme znovu :)'); 
@@ -122,8 +109,6 @@ function random_coin(){
 	}
 	
 	
-
-
 
  	// ------- ovladače hudby -------
 
@@ -148,32 +133,24 @@ function random_coin(){
 				
 		if (aktualniPozadi === 1) {
 			document.body.style.backgroundImage = "url('obrazky/pozadi/hypnotize.png')";
-			console.log(aktualniPozadi);
 		}
 		if (aktualniPozadi === 2) {
 			document.body.style.backgroundImage = "url('obrazky/pozadi/round.png')";
-			console.log(aktualniPozadi);
 		}
 		if (aktualniPozadi === 3) {
 			document.body.style.backgroundImage = "url('obrazky/pozadi/seigaiha.png')";
-			console.log(aktualniPozadi);
 		}
 		if (aktualniPozadi === 4) {
 			document.body.style.backgroundImage = "url('obrazky/pozadi/swirl.png')";
-			console.log(aktualniPozadi);
 		}
 		if (aktualniPozadi === 5) {
 			document.body.style.backgroundImage = "url('obrazky/pozadi/weather.png')";
-			console.log(aktualniPozadi);
 		}
 		if (aktualniPozadi === 6) {
 			document.body.style.backgroundImage = "url('obrazky/pozadi/whirlpool.png')";
-			console.log(aktualniPozadi);
-			
 		}
-			if (aktualniPozadi === 7) {
+		if (aktualniPozadi === 7) {
 			document.body.style.backgroundImage = "url('obrazky/pozadi/geometry.png')";
-			console.log(aktualniPozadi);
 			aktualniPozadi = 1;
 		}
 		aktualniPozadi += 1;
@@ -195,7 +172,7 @@ function random_coin(){
 			panacek.style.top = posunY + 'px';
 			panacek.src = 'obrazky/panacek-nahoru.png';
 			if (panacekY <= 50) {
-				panacek.style.top = panacekY + 'px';
+				panacek.style.top = 50 + 'px';
 			}
 			if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
 				nahodnaMince();
@@ -209,7 +186,7 @@ function random_coin(){
 			panacek.style.top = posunY + 'px';
 			panacek.src = 'obrazky/panacek.png';
 			if ((panacekY + panacekVyska) >= vyskaOkna) {
-				panacek.style.top = panacekY + 'px';
+				panacek.style.top = (vyskaOkna - panacekVyska) + 'px';
 			}
 			if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
 				nahodnaMince();
@@ -223,7 +200,7 @@ function random_coin(){
 			panacek.style.left = posunX + 'px';
 			panacek.src = 'obrazky/panacek-vlevo.png';
 			if ((panacekX) <= 0) {
-				panacek.style.left = panacekX + 'px';
+				panacek.style.left = 0 + 'px';
 			}
 			if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
 				nahodnaMince();
@@ -237,7 +214,7 @@ function random_coin(){
 			panacek.style.left = posunX + 'px';
 			panacek.src = 'obrazky/panacek-vpravo.png';
 			if ((panacekX + panacekSirka) >= sirkaOkna) {
-				panacek.style.left = panacekX + 'px';
+				panacek.style.left = (sirkaOkna - panacekSirka) + 'px';
 			}
 			if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
 				nahodnaMince();
