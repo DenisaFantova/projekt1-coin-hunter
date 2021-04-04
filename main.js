@@ -1,66 +1,35 @@
-
-let panacek = document.getElementById('panacek');
-let mince = document.getElementById('mince');
+let panacek;
+let mince;
+let panacekSirka;
+let panacekVyska;
+let minceSirka;
+let minceVyska;
 let zvukMince = document.getElementById('zvukMince');
 let zvukFanfara = document.getElementById('zvukFanfara');
 let score = document.getElementById('score');
+let skore = score.textContent;
 let sirkaOkna = window.innerWidth;
 let vyskaOkna = window.innerHeight;
-// let aktualniScore = 0;
-let panacekSirka = getComputedStyle(panacek);
-panacekSirka = parseInt(panacekSirka.width);
-let panacekVyska = getComputedStyle(panacek);
-panacekVyska = parseInt(panacekVyska.height);
-let minceSirka = getComputedStyle(mince);
-minceSirka = parseInt(minceSirka.width);
-let minceVyska = getComputedStyle(mince);
-minceVyska = parseInt(minceVyska.height);
 
-/* od Filipa
 
-let hodnota_mince = 1; 
-function random_coin(){
-    let nahoda_mince = Math.floor(Math.random() * 10 + 1) // 1-10
- 
-    if(nahoda_mince >= 8){
-        coin.src = "obrazky/mince.png"
-        hodnota_mince = 3
-    }else if(nahoda_mince >= 6){
-        coin.src = "obrazky/mince-stribrna.png"
-        hodnota_mince = 2
-    }else{
-        coin.src = "obrazky/mince-bronzova.png"
-        hodnota_mince = 1
-    }
- 
-    // Randomizer
-    coin_x = (Math.floor(Math.random() * 20) + 1) * 10 ;
-    coin_y = (Math.floor(Math.random() * 20) + 1) * 10 ;
-    coin.style.left = coin_x + "px";
-    coin.style.top = coin_y + "px";
-
-	function pocitejCas(){
-	setInterval(function(){
-		time_score += 1;
-		time_text.innerText = time_score + "s";
-	}, 1000);
-	}		
-
-}
-*/
-
-	function priNacteniStranky() {
-		alert('Pro pohyb panáčka použij šipky. Hraješ dokud nedosáhneš 10 a víc bodů. Můžeš si vybrat pozadí. A nezapomeň si zapnout hudbu :)');
-		nahodnaMince();
-		umisteniPanacka();
+function priNacteniStranky() {
+	alert('Pro pohyb panáčka použij šipky. Hraješ dokud nedosáhneš 10 a víc bodů. Můžeš si vybrat pozadí. A nezapomeň si zapnout hudbu :)');
+	panacek = document.getElementById('panacek');
+	mince = document.getElementById('mince');
+	panacekSirka = panacek.width;
+	panacekVyska = panacek.height;
+	minceSirka = mince.width;
+	minceVyska = mince.height;
+	nahodnaMince();
+	umisteniPanacka();
 	}
 
 
 	// umístění panáčka na střed stránky
 	
 	function umisteniPanacka() {
-		panacek.style.left = sirkaOkna / 2 - panacekSirka / 2 + 'px';
-		panacek.style.top = vyskaOkna / 2 - panacekVyska / 2 + 'px';	
+		panacek.style.left = window.innerWidth / 2 - panacekSirka / 2 + 'px';
+		panacek.style.top = window.innerHeight / 2 - panacekVyska / 2 + 'px';	
 	}
 
 
@@ -83,8 +52,8 @@ function random_coin(){
 			hodnotaMince = 1;
 		}
 
-	nahodneUmisteniX = Math.floor(Math.random() * (sirkaOkna - minceSirka));
-	nahodneUmisteniY = Math.floor(Math.random() * (vyskaOkna - minceVyska) + 50);
+	nahodneUmisteniX = Math.floor(Math.random() * (window.innerWidth - minceSirka));
+	nahodneUmisteniY = Math.floor(Math.random() * (window.innerHeight - minceVyska) + 50);
 
 	mince.style.left = nahodneUmisteniX + 'px';
 	mince.style.top = nahodneUmisteniY + 'px';
@@ -161,10 +130,10 @@ function random_coin(){
 
 	function pohybPanacka(udalost) {
 		
-		let panacekX = parseInt(panacek.style.left);
-		let panacekY = parseInt(panacek.style.top);
-		let minceX = parseInt(mince.style.left);
-		let minceY = parseInt(mince.style.top);
+		panacekX = parseInt(panacek.style.left);
+		panacekY = parseInt(panacek.style.top);
+		minceX = parseInt(mince.style.left);
+		minceY = parseInt(mince.style.top);
 		
 
 		if (udalost.key === 'ArrowUp') {
@@ -175,9 +144,9 @@ function random_coin(){
 				panacek.style.top = 50 + 'px';
 			}
 			if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
-				nahodnaMince();
 				zvukMince.play();
 				bod();
+				nahodnaMince();			
 			}
 		}	
 			
@@ -189,9 +158,9 @@ function random_coin(){
 				panacek.style.top = (vyskaOkna - panacekVyska) + 'px';
 			}
 			if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
-				nahodnaMince();
 				zvukMince.play();
 				bod();
+				nahodnaMince();				
 			}
 		}
 
@@ -203,9 +172,9 @@ function random_coin(){
 				panacek.style.left = 0 + 'px';
 			}
 			if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
-				nahodnaMince();
-				zvukMince.play();
+				zvukMince.play();	
 				bod();
+				nahodnaMince();						
 			}
 		}
 
@@ -217,9 +186,9 @@ function random_coin(){
 				panacek.style.left = (sirkaOkna - panacekSirka) + 'px';
 			}
 			if (!(panacekX + panacekSirka < minceX || minceX + minceSirka < panacekX || panacekY + panacekVyska < minceY || minceY + minceVyska < panacekY)) {
-				nahodnaMince();
 				zvukMince.play();
 				bod();
+				nahodnaMince();
 			}
 		}
 	}
